@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import MovieCard from './MovieCard'
 import {data} from '../data';
 import 'bootstrap/dist/css/bootstrap.css';
+import { addMovies  } from '../actions';
 
 class App extends React.Component{
   componentDidMount(){
@@ -11,13 +12,10 @@ class App extends React.Component{
       console.log("updated");
       this.forceUpdate();
     })
-    store.dispatch({
-      type:"ADD_MOVIES",
-      movies:data
-    })
+    store.dispatch(addMovies (data));
   }
   render(){
-  const movies=this.props.store.getState();
+  const {list}=this.props.store.getState();
   return (
       <div className="App">
         <Navbar/>
@@ -26,15 +24,15 @@ class App extends React.Component{
               <div className='tab'>Movies</div>
               <div className='tab'>Favroites</div>
             </div>
-        </div>
         <div className='list'>
-         {movies.map((movie,index)=>(
+         {list.map((movie,index)=>(
              <MovieCard movie={movie}
              key={`movies-${index}`}
              />))
             }
+        </div>
        </div>
-      </div>
+     </div>
     );
   }
 }
