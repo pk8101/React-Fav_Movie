@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import MovieCard from './MovieCard'
 import {data} from '../data';
 import 'bootstrap/dist/css/bootstrap.css';
-import { addMovies  } from '../actions';
+import {  addMovies  } from '../actions';
 
 class App extends React.Component{
   componentDidMount(){
@@ -13,6 +13,14 @@ class App extends React.Component{
       this.forceUpdate();
     })
     store.dispatch(addMovies (data));
+  }
+  isMovieFavourite=(movie)=>{
+    const{favourites}=this.props.store.getState();
+    const index=favourites.indexOf(movie);
+    if(index!==-1){
+      return true;
+    }
+    return false;
   }
   render(){
   const {list}=this.props.store.getState();
@@ -28,6 +36,8 @@ class App extends React.Component{
          {list.map((movie,index)=>(
              <MovieCard movie={movie}
              key={`movies-${index}`}
+             dispatch={this.props.store.dispatch}
+             isFavourite={this.isMovieFavourite(movie)}
              />))
             }
         </div>
