@@ -17,7 +17,6 @@ export default Navbar;
 const styles={
   navBar:{
     background:'black',
-    position:'fixed',
     width:"100%"
   },
   tab:{
